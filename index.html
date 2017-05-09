@@ -59,7 +59,8 @@ var init = function() {
 	
 	var bus = [];
 	
-	var debugmode = true;
+//	var debugmode = true;
+	var debugmode = false;
 	if (debugmode) {
 		var st = {
 			destination: "鯖江市役所",
@@ -86,6 +87,8 @@ var init = function() {
 		].join("<br>");
 		mon.innerHTML = s;
 	}
+	
+	var lockonid = -1;
 	
 	getBusTsutsuji(function(data) {
 		bus = data.bus;
@@ -120,18 +123,22 @@ var init = function() {
 						isRunning: "-",
 						isdelay : "-",
 						speed: "-",
-						direction: "-"
+						direction: "-",
+						passenger: "-",
+						wheelchair: "-",
 					};
 				}
 				var s = [
 					"<h3>" + st.destination + "</h3>",
-					"便番号/NO: " + st.binid,
-					"バス番号/BUS: " + st.busid, // this.id,
+					"便番号: " + st.binid,
+					"バス番号: " + st.busid, // this.id,
 				//	st.datetime,
-					(st.isRunning === true ? "運行中/RUN" : "運行以外/NOT RUN"),
-					"遅れ/DELAY: " + (st.isdelay === "true" ? "あり/YES" : "なし/NO"),
-					"速度/SPEED: " + (st.speed === "-" ? "-" : mps2kmph(st.speed) + "km/h"),
-					"方向/DIR: " + (st.direction === "-" ? "-" : fixfloat(st.direction, 0) + "度(deg)")
+					(st.isRunning === true ? "運行中" : "運行以外"),
+					"遅れ: " + (st.isdelay === "true" ? "あり" : "なし"),
+					"速度: " + (st.speed === "-" ? "-" : mps2kmph(st.speed) + "km/h"),
+					"方向: " + (st.direction === "-" ? "-" : fixfloat(st.direction, 0) + "度")
+					"乗客数: " + (st.passenger === "-" ? "-" : st.passenger + "人"),
+					"車椅子利用: " + (st.wheelchair === "-" ? "-" : (st.wheelchair ? "あり/YES" : "なし")),
 				].join("<br>");
 				return s;
 			};
@@ -158,6 +165,7 @@ var init = function() {
 							var s = d.getStatus();
 //							map.showInfo(this.pos, s);
 							mon.innerHTML = s;
+							lockonid = d.busid;
 						};
 					} else {
 						this.icon.setPosition(pos);
@@ -182,6 +190,9 @@ var init = function() {
 				getBusStatus(b.id, function(st) {
 					b.status = st;
 					b.draw();
+					if (b.id == lockonid) {
+						map.setCenter(b.getPosition());
+					}
 				});
 			};
 			f(bus[i]);
@@ -225,6 +236,7 @@ var init = function() {
 					var marker = new MapIcon(map, pos, "icon/icon_busstop.png", 32, 32);
 					marker.item = item;
 					marker.pos = pos;
+					marker.setZIndex(zbusstop);
 
 //					bounds.extend(pos);
 				}
