@@ -47,7 +47,7 @@ var init = function() {
 			myloc = new MapIcon(map, pos, "icon/icon_sabanyan.png", 32, 32);
 			myloc.pos = pos;
 			myloc.onclick = function() {
-				map.showInfo(this.pos, "現在位置だよ");
+				map.showInfo(this.pos, "現在位置");
 			};
 		});
 	};
@@ -55,7 +55,7 @@ var init = function() {
 	get("all").onclick = function() {
 		map.fitBounds(bounds);
 	};
-	setTimeout(moveHere, 1000);
+//	setTimeout(moveHere, 1000);
 	
 	var bus = [];
 	
@@ -137,8 +137,8 @@ var init = function() {
 					"遅れ: " + (st.isdelay === "true" ? "あり" : "なし"),
 					"速度: " + (st.speed === "-" ? "-" : mps2kmph(st.speed) + "km/h"),
 					"方向: " + (st.direction === "-" ? "-" : fixfloat(st.direction, 0) + "度"),
-					"乗客数: " + (st.passenger === "-" ? "-" : st.passenger + "人"),
-					"車椅子利用: " + (st.wheelchair === "-" ? "-" : (st.wheelchair ? "あり" : "なし")),
+					"乗客数: " + (st.passenger === "-" || !st.passenger ? "-" : st.passenger + "人"),
+					"車椅子利用: " + (st.wheelchair === "-" || !st.wheelchair ? "-" : (st.wheelchair ? "あり" : "なし")),
 				].join("<br>");
 				return s;
 			};
@@ -190,6 +190,7 @@ var init = function() {
 				getBusStatus(b.id, function(st) {
 					b.status = st;
 					b.draw();
+					console.log(lockonid + " " + b.id);
 					if (b.id == lockonid) {
 						map.setCenter(b.getPosition());
 					}
@@ -199,6 +200,8 @@ var init = function() {
 		}
 	};
 	setInterval(drawBus, 3000);
+	
+	var bounds = new google.maps.LatLngBounds();
 	
 	get("btn").onclick = function() {
 		gps(function(lat, lng) {
@@ -219,10 +222,12 @@ var init = function() {
 	if (!viewrosen)
 		return;
 	
+	
 	getRosenTsutsuji(function(data) {
 		var drawBusLine = function(rosenid, name, col) {
 			getBusStopsTsutsuji(rosenid, function(data) {
-	
+				
+				
 				var busstop = data.busstop;
 //				dump(data);
 				var alpha = .5;
@@ -238,7 +243,7 @@ var init = function() {
 					marker.pos = pos;
 					marker.marker.setZIndex(zbusstop);
 
-//					bounds.extend(pos);
+					bounds.extend(pos);
 				}
 //				map.fitBounds(bounds);
 			});
