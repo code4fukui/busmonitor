@@ -137,9 +137,9 @@ var init = function() {
 					"遅れ: " + (st.isdelay === "true" ? "あり" : "なし"),
 					"速度: " + (st.speed === "-" ? "-" : mps2kmph(st.speed) + "km/h"),
 					"方向: " + (st.direction === "-" ? "-" : fixfloat(st.direction, 0) + "度"),
-					"乗客数: " + (st.passenger === "-" || !st.passenger ? "-" : st.passenger + "人"),
-					"車椅子利用: " + (st.wheelchair === "-" || !st.wheelchair ? "-" : (st.wheelchair ? "あり" : "なし")),
-					"乗客最終更新: " + (st.update ? st.update : "-"),
+					"乗客数: " + (st.passenger === "-" ? "-" : st.passenger + "人"),
+					"車椅子利用: " + (st.wheelchair === "-" ? "-" : (st.wheelchair ? "あり" : "なし")),
+					"<small>乗客最終更新: " + (st.update ? st.update : "-") + "</small>",
 				].join("<br>");
 				return s;
 			};
@@ -193,7 +193,7 @@ var init = function() {
 					b.draw();
 					var p = buspassenger[b.status.busid];
 					if (p) {
-					console.log(p);
+	//				console.log(p);
 						b.status.passenger = p.ride;
 						b.status.wheelchair = p.wheelchair;
 						b.status.update = formatDate(p.datetime);
