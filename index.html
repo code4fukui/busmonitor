@@ -165,7 +165,7 @@ var init = function() {
 							var s = d.getStatus();
 //							map.showInfo(this.pos, s);
 							mon.innerHTML = s;
-							lockonid = d.busid;
+							lockonid = d.status.busid;
 						};
 					} else {
 						this.icon.setPosition(pos);
@@ -201,7 +201,7 @@ var init = function() {
 	};
 	setInterval(drawBus, 3000);
 	
-	var bounds = new google.maps.LatLngBounds();
+	var bounds = new LatLngBounds();
 	
 	get("btn").onclick = function() {
 		gps(function(lat, lng) {
@@ -245,7 +245,7 @@ var init = function() {
 
 					bounds.extend(pos);
 				}
-//				map.fitBounds(bounds);
+				map.fitBounds(bounds);
 			});
 		};
 		var rosen = data.rosen;
