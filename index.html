@@ -150,7 +150,7 @@ var init = function() {
 					// direction 例  0：北, 90：東, 180：南, 270：西
 				var n = ((dir + 360 / 32) / (360 / 8) >> 0) % 8;
 //				alert(n);
-				return this.busicon[n].iconURL;
+				return this.busicon[n].iconURL.replace("http://", "https://");
 			};
 			b.draw = function() {
 				var pos = this.getPosition();
@@ -193,6 +193,7 @@ var init = function() {
 					b.draw();
 					var p = buspassenger[b.status.busid];
 					if (p) {
+					console.log(p);
 						b.status.passenger = p.ride;
 						b.status.wheelchair = p.wheelchair;
 						b.status.update = formatDate(p.datetime);
