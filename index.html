@@ -139,6 +139,7 @@ var init = function() {
 					"方向: " + (st.direction === "-" ? "-" : fixfloat(st.direction, 0) + "度"),
 					"乗客数: " + (st.passenger === "-" || !st.passenger ? "-" : st.passenger + "人"),
 					"車椅子利用: " + (st.wheelchair === "-" || !st.wheelchair ? "-" : (st.wheelchair ? "あり" : "なし")),
+					"乗客最終更新: " + (st.update ? st.update : "-"),
 				].join("<br>");
 				return s;
 			};
@@ -190,8 +191,14 @@ var init = function() {
 				getBusStatus(b.id, function(st) {
 					b.status = st;
 					b.draw();
-					console.log(lockonid + " " + b.id);
+					var p = buspassenger[b.status.busid];
+					if (p) {
+						b.status.passenger = p.ride;
+						b.status.wheelchair = p.wheelchair;
+						b.status.update = formatDate(p.datetime);
+					}
 					if (b.id == lockonid) {
+						mon.innerHTML = b.getStatus();
 						map.setCenter(b.getPosition());
 					}
 				});
@@ -254,6 +261,34 @@ var init = function() {
 			drawBusLine(item.id, item.name, item.col);
 		}
 	});
+	
+	// passenger
+	setInterval(updateBusPassenger, 5000);
+};
+
+var buspassenger = {};
+
+var updateBusPassenger = function() {
+	var url = "https://api.odp.jig.jp/siot/buslog/jp/fukui/sabae/";
+	jsonp(url + "?callback=" + getCallbackMethod(function(data) {
+//		dump(data);
+		var bus = [];
+//		clear(get("main"));
+		for (var j = data.length - 1; j >= 0; j--) {
+			var d = data[j];
+			if (bus[d.bus_id])
+				continue;
+			bus[d.bus_id] = data;
+			// bus_id
+			// ride
+			// wheelchair
+			// datetime
+		}
+		buspassenger = bus;
+	}));
+};
+var formatDate = function(s) {
+	return s.substring(0, 4) + "." + s.substring(4, 6) + "." + s.substring(6, 8) + " " + s.substring(8, 10) + ":" + s.substring(10, 12) + ":" + s.substring(12, 14);
 };
 //
 var gps = function(callback) {
