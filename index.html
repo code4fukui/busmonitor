@@ -13,18 +13,8 @@ var zbus = 4;
 
 var myloc = null;
 
-var getLanguage2 = function() {
-	var lang = getLanguage();
-	var hash = document.location.hash;
-	if (hash.length > 2) {
-		lang = hash.substring(1);
-	}
-	return lang;
-};
-loadLocalAPI();
-
 window.onload = function() {
-//	init();
+	init();
 };
 var init = function() {
 	if (google == null || google.maps == null || google.maps.LatLng == null) {
