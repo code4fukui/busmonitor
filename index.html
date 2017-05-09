@@ -59,64 +59,6 @@ var init = function() {
 	
 	var bus = [];
 	
-	getWifis(function(data) {
-//	dump(data);
-		data.push( // めがね会館追加
-			{
-				name: "めがね会館",
-				available: "10:00-17:00",
-				power: "有",
-				latitude: 35.942777,
-				longitude: 136.198767
-			}
-		);
-		for (var i = 0; i < data.length; i++) {
-			var item = data[i];
-			var pos = new LatLng(item.latitude, item.longitude);
-			var marker = new MapIcon(map, pos, "icon/icon_wifi.png", 32, 32);
-			marker.item = item;
-			marker.pos = pos;
-			marker.onclick = function() {
-				var item = this.item;
-				var s = item.name + "<br>";
-				s += "利用可能時間：" + item.available + "<br>";
-				s += "電源：" + item.power + "<br>";
-				s += "data: <a href=http://www.city.sabae.fukui.jp/pageview.html?id=11552　target=_blank>データシティ鯖江</a>";
-				map.showInfo(this.pos, s);
-			};
-			marker.marker.setZIndex(zsabakan);
-			bounds.extend(pos);
-		}
-//		map.fitBounds(bounds);
-	});
-	
-	getHotels(function(data) {
-		for (var i = 0; i < data.length; i++) {
-			var item = data[i];
-			var pos = new LatLng(item.lat, item.long);
-			var marker = new MapIcon(map, pos, "icon/icon_hotel" + (item.wifi == 1 ? "wifi" : "") + ".png", 32, 32);
-			marker.item = item;
-			marker.pos = pos;
-			marker.onclick = function() {
-				var item = this.item;
-				var s = item.label_ja + "<br>" + item.label_en + "<br>";
-				if (item.onsen == 1)
-					s += "温泉あり<br>";
-				if (item.wifi == 1)
-					s += "Wi-Fiあり<br>";
-				if (item.tripadvisor)
-					s += "<a href=" + item.tripadvisor + " target=_blank>TripAdvisorでクチコミを見る</a><br>";
-				s += "data: <a href=http://linkdata.org/work/rdf1s1142i target=_blank>http://linkdata.org/work/rdf1s1142i</a>";
-				map.showInfo(this.pos, s);
-			};
-			marker.marker.setZIndex(zsabakan);
-			bounds.extend(pos);
-		}
-//		map.fitBounds(bounds);
-	});
-	
-//	return;
-	
 	getBusTsutsuji(function(data) {
 		bus = data.bus;
 		for (var i = 0; i < bus.length; i++) {
@@ -251,6 +193,10 @@ var init = function() {
 //					var marker = new MapCircle(map, pos, 5, col);
 					line.addPoint(pos);
 
+					var marker = new MapIcon(map, pos, "icon/icon_busstop.png", 32, 32);
+					marker.item = item;
+					marker.pos = pos;
+
 //					bounds.extend(pos);
 				}
 //				map.fitBounds(bounds);
@@ -370,10 +316,9 @@ var resizeMap = function() {
 	var gap = 75;
 	get("map").style.height = (h - gap) + "px";
 };
-/*
 window.onresize = resizeMap;
 window.addEventListener("load", resizeMap, false);
-*/
+
 
 // --> map util (google map)
 var makeIconTsutsuji = function(url) {
