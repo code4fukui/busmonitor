@@ -1,5 +1,5 @@
 <!DOCTYPE html><html><head><meta charset="utf-8">
-<title>鯖江つつじバスモニター</title>
+<title>鯖江つつじバスモニター / 公共交通IoTリアルタイムオープンデータ</title>
 <meta name="viewport" content="target-densitydpi=middle-dpi, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
 <meta property="og:image" content="ss.jpg">
 <script src="lib/fukuno.js"></script>
@@ -137,8 +137,8 @@ var init = function() {
 					"遅れ: " + (st.isdelay === "true" ? "あり" : "なし"),
 					"速度: " + (st.speed === "-" ? "-" : mps2kmph(st.speed) + "km/h"),
 					"方向: " + (st.direction === "-" ? "-" : fixfloat(st.direction, 0) + "度"),
-					"乗客数: " + (st.passenger === "-" ? "-" : st.passenger + "人"),
-					"車椅子利用: " + (st.wheelchair === "-" ? "-" : (st.wheelchair ? "あり" : "なし")),
+					"乗客数: " + (st.passenger === "-" || st.passenger === undefined ? "-" : st.passenger + "人"),
+					"車椅子利用: " + (st.wheelchair === "-" || st.wheelchair === undefined ? "-" : (st.wheelchair ? "あり" : "なし")),
 					"<small>乗客最終更新: " + (st.update ? st.update : "-") + "</small>",
 				].join("<br>");
 				return s;
@@ -602,6 +602,9 @@ body {
 	font-size: 4vmin;
 	box-sizing: border-box;
 }
+#mon small {
+	font-size: 1.5vmin;
+}
 button {
 	margin: 5px;
 	padding: 6px;
@@ -663,7 +666,10 @@ button {
 
 <div id="main"><div id="map"></div><div id="mon"></div><button id="btn">現在地</button><button id="all">全体図</button>
 
-<div id="src">データ提供：<a href=http://www.city.sabae.fukui.jp/users/tutujibus/web-api/web-api.html target=_blank>つつじバス / 鯖江市｜WEB APIデータ</a>、<a href=http://www.city.sabae.fukui.jp/pageview.html?id=11552>データシティ鯖江</a><br>
+<h2>鯖江つつじバスモニター / 公共交通IoTリアルタイムオープンデータ</h2>
+<div id="src">
+<br>
+データ提供：<a href=http://www.city.sabae.fukui.jp/users/tutujibus/web-api/web-api.html target=_blank>つつじバス / 鯖江市｜WEB APIデータ</a>、<a href="https://api.odp.jig.jp/siot/buslog/jp/fukui/sabae/">鯖江市バス乗客数リアルタイムオープンデータ / Passengers Realtime Open Data in JSON</a> CC BY <a href=http://data.city.sabae.lg.jp>Data City Sabae</a><br>
 アプリ＆アイコン：福野泰介 CC BY <a href=http://fukuno.jig.jp target=_blank>fukuno.jig.jp</a><br>
 </div>
 
