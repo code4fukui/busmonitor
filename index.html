@@ -274,11 +274,9 @@ var updateBusPassenger = function() {
 //		dump(data);
 		var bus = [];
 //		clear(get("main"));
-		for (var j = data.length - 1; j >= 0; j--) {
+		for (var j = 0; j < data.length; j++) {
 			var d = data[j];
-			if (bus[d.bus_id])
-				continue;
-			bus[d.bus_id] = data;
+			bus[d.bus_id] = d
 			// bus_id
 			// ride
 			// wheelchair
