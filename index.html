@@ -136,9 +136,9 @@ var init = function() {
 					(st.isRunning === true ? "運行中" : "運行以外"),
 					"遅れ: " + (st.isdelay === "true" ? "あり" : "なし"),
 					"速度: " + (st.speed === "-" ? "-" : mps2kmph(st.speed) + "km/h"),
-					"方向: " + (st.direction === "-" ? "-" : fixfloat(st.direction, 0) + "度")
+					"方向: " + (st.direction === "-" ? "-" : fixfloat(st.direction, 0) + "度"),
 					"乗客数: " + (st.passenger === "-" ? "-" : st.passenger + "人"),
-					"車椅子利用: " + (st.wheelchair === "-" ? "-" : (st.wheelchair ? "あり/YES" : "なし")),
+					"車椅子利用: " + (st.wheelchair === "-" ? "-" : (st.wheelchair ? "あり" : "なし")),
 				].join("<br>");
 				return s;
 			};
@@ -236,7 +236,7 @@ var init = function() {
 					var marker = new MapIcon(map, pos, "icon/icon_busstop.png", 32, 32);
 					marker.item = item;
 					marker.pos = pos;
-					marker.setZIndex(zbusstop);
+					marker.marker.setZIndex(zbusstop);
 
 //					bounds.extend(pos);
 				}
