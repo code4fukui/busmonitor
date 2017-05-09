@@ -59,6 +59,34 @@ var init = function() {
 	
 	var bus = [];
 	
+	var debugmode = true;
+	if (debugmode) {
+		var st = {
+			destination: "鯖江市役所",
+			binid: 2,
+			busid: 3,
+			isRunning: true,
+			isdelay : "-",
+			speed: "30",
+			direction: "15",
+			passenger: 5,
+			wheelchair: false,
+		};
+		var s = [
+			"<h3>" + st.destination + "</h3>",
+			"便番号: " + st.binid,
+			"バス番号: " + st.busid, // this.id,
+		//	st.datetime,
+			(st.isRunning === true ? "運行中" : "運行以外"),
+			"遅れ: " + (st.isdelay === "true" ? "あり" : "なし"),
+			"速度: " + (st.speed === "-" ? "-" : st.speed + "km/h"),
+			"方向: " + (st.direction === "-" ? "-" : fixfloat(st.direction, 0) + "度(deg)"),
+			"乗客数: " + (st.passenger === "-" ? "-" : st.passenger + "人"),
+			"車椅子利用: " + (st.wheelchair === "-" ? "-" : (st.wheelchair ? "あり/YES" : "なし")),
+		].join("<br>");
+		mon.innerHTML = s;
+	}
+	
 	getBusTsutsuji(function(data) {
 		bus = data.bus;
 		for (var i = 0; i < bus.length; i++) {
