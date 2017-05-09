@@ -509,20 +509,20 @@ var getBusTsutsuji = function(callback) {
 };
 // http://www.city.sabae.fukui.jp/users/tutujibus/web-api/10.html
 var getBusIcon = function(busid, callback) {
-	var url = "http://tutujibus.com/busiconLookup.php";
+	var url = "https://tutujibus.com/busiconLookup.php";
 	url += "?busid=" + busid;
 	url += "&callback=" + getCallbackMethod(callback);
 	jsonp(url);
 };
 // http://www.city.sabae.fukui.jp/users/tutujibus/web-api/05.html
 var getBusStatus = function(busid, callback) {
-	var url = "http://tutujibus.com/busLookup.php";
+	var url = "https://tutujibus.com/busLookup.php";
 	url += "?busid=" + busid;
 	url += "&callback=" + getCallbackMethod(callback);
 	jsonp(url);
 };
 var getBusStopsTsutsuji = function(rosenid, callback) {
-	var url = "http://tutujibus.com/busstopLookup.php";
+	var url = "https://tutujibus.com/busstopLookup.php";
 	url += "?rosenid=" + rosenid;
 	url += "&callback=" + getCallbackMethod(callback);
 	jsonp(url);
