@@ -21,8 +21,7 @@ var init = function() {
 		setTimeout(init, 100);
 		return;
 	}
-
-	var map = new Map("map");
+	var map = new MapX("map");
 	var bounds = new LatLngBounds();
 	var fit = true;
 	var viewrosen = true;
@@ -413,7 +412,7 @@ var makeIconTsutsuji = function(url) {
 	);
 };
 
-var Map = function(id) {
+var MapX = function(id) {
 	this.map = new google.maps.Map(get(id), {
 		center: new google.maps.LatLng(36.208823, 138.251953),	// 日本全体にちょうどいい
 		zoom: 4, // 5だと日本全体, 1で世界地図
@@ -421,7 +420,7 @@ var Map = function(id) {
 		mapTypeId: google.maps.MapTypeId.ROADMAP,
 //		mapTypeId: google.maps.MapTypeId.HYBRID,
 //		mapTypeId: "mono",
-		mapTypeIds: ['mono', google.maps.MapTypeId.ROADMAP]
+//		mapTypeIds: ['mono', google.maps.MapTypeId.ROADMAP]
 	});
 	this.info = new google.maps.InfoWindow();
 	return;
@@ -431,7 +430,7 @@ var Map = function(id) {
 	this.map.mapTypes.set('mono', monoType);
 	this.map.setMapTypeId('mono');
 };
-Map.prototype = {
+MapX.prototype = {
 	fitBounds: function(bounds) {
 		this.map.fitBounds(bounds.b);
 	},
