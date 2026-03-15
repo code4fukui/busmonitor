@@ -1,4 +1,7 @@
 # busmonitor
+
+> 日本語のREADMEはこちらです: [README.ja.md](README.ja.md)
+
 Open data utilization, Sabae Tsutsujibasu bus monitor
 
 ## Demo
