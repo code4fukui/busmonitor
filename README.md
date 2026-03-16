@@ -18,4 +18,4 @@ This project utilizes open bus data from the following sources:
 - SPARQL endpoints for other cities (Osaka, Kyoto, Kobe)
 
 ## License
-The code in this repository is licensed under the MIT License.
+MIT License — see [LICENSE](LICENSE).
