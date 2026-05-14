@@ -4,7 +4,7 @@
 
 ## デモ
 
-:bus: **ライブデモ: http://codeforfukui.github.io/busmonitor/**
+:bus: **ライブデモ: ~~http://codeforfukui.github.io/busmonitor/**~~ *(unavailable)*
 
 ## 機能
 

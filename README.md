@@ -6,7 +6,7 @@ A real-time bus monitoring web application for the Tsutsuji Bus in Sabae City, J
 
 ## Demo
 
-:bus: **Live Demo: http://codeforfukui.github.io/busmonitor/**
+:bus: **Live Demo: ~~http://codeforfukui.github.io/busmonitor/**~~ *(unavailable)*
 
 ## Features
 
